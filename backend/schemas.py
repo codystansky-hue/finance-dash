@@ -22,6 +22,7 @@ class MonthlyCashflowBase(BaseModel):
     income: float
     expenses: float
     savings: float
+    invoiced_unbilled_income: float = 0.0
 
 class MonthlyCashflowCreate(MonthlyCashflowBase):
     pass

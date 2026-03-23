@@ -18,3 +18,4 @@ class MonthlyCashflow(Base):
     income = Column(Float, default=0.0)
     expenses = Column(Float, default=0.0)
     savings = Column(Float, default=0.0)
+    invoiced_unbilled_income = Column(Float, default=0.0) # For invoiced/unbilled time
