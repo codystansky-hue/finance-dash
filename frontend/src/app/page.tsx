@@ -14,21 +14,21 @@ export default function Home() {
 
   const fetchItems = async () => {
     try {
-      const res = await fetch("http://localhost:8000/api/items/");
+      const res = await fetch("http://192.168.1.197:8000/api/items/");
       if (res.ok) setItems(await res.json());
     } catch (e) { console.error("Error fetching items", e); }
   };
 
   const fetchCashflows = async () => {
     try {
-      const res = await fetch("http://localhost:8000/api/cashflow/");
+      const res = await fetch("http://192.168.1.197:8000/api/cashflow/");
       if (res.ok) setCashflows(await res.json());
     } catch (e) { console.error("Error fetching cashflows", e); }
   };
 
   const addItem = async (e: any) => {
     e.preventDefault();
-    await fetch("http://localhost:8000/api/items/", {
+    await fetch("http://192.168.1.197:8000/api/items/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name: newItem.name, amount: parseFloat(newItem.amount), is_income: newItem.is_income }),
@@ -39,7 +39,7 @@ export default function Home() {
 
   const addCashflow = async (e: any) => {
     e.preventDefault();
-    await fetch("http://localhost:8000/api/cashflow/", {
+    await fetch("http://192.168.1.197:8000/api/cashflow/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ month: newCashflow.month, total_income: parseFloat(newCashflow.total_income), total_expense: parseFloat(newCashflow.total_expense) }),
