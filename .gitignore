@@ -3,3 +3,6 @@
 *.pyc
 .env
 /backend/finance.db
+*.crt
+*.key
+.playwright-mcp/

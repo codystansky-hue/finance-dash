@@ -1,11 +1,19 @@
+from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from .database import engine, Base
-from .routers import items, cashflow
+from .routers import items, cashflow, plaid, schwab, manual, projection, timetracker
 
 Base.metadata.create_all(bind=engine)
 
-app = FastAPI(title="Finance Dashboard API")
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    schwab.start_callback_server()
+    yield
+
+
+app = FastAPI(title="Finance Dashboard API", lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
@@ -17,6 +25,11 @@ app.add_middleware(
 
 app.include_router(items.router)
 app.include_router(cashflow.router)
+app.include_router(plaid.router)
+app.include_router(schwab.router)
+app.include_router(manual.router)
+app.include_router(projection.router)
+app.include_router(timetracker.router)
 
 @app.get("/")
 def read_root():
